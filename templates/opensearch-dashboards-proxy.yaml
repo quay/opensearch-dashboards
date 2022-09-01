@@ -125,11 +125,9 @@ objects:
           - --provider=openshift
           - --openshift-service-account=opensearch-dashboards-proxy
           - --upstream=http://localhost:8080
-          - '--openshift-delegate-urls={"/": {"resource": "namespaces", "verb": "get", "name": "${NAMESPACE}", "namespace": "${NAMESPACE}"}}'
           - --tls-cert=/etc/tls/private/tls.crt
           - --tls-key=/etc/tls/private/tls.key
           - --cookie-secret-file=/var/run/secrets/kubernetes.io/serviceaccount/token
-          - --pass-basic-auth=false
           volumeMounts:
           - mountPath: /etc/tls/private
             name: nginx-tls
@@ -237,38 +235,7 @@ objects:
       serviceaccounts.openshift.io/oauth-redirectreference.primary: '{"kind":"OAuthRedirectReference","apiVersion":"v1","reference":{"kind":"Route","name":"opensearch-dashboards-proxy"}}'
   imagePullSecrets:
   - name: ${IMAGE_PULL_SECRET_NAME}
-- apiVersion: rbac.authorization.k8s.io/v1
-  kind: ClusterRole
-  metadata:
-    name: opensearch-dashboards-proxy
-  rules:
-  - apiGroups:
-    - authentication.k8s.io
-    resources:
-    - tokenreviews
-    verbs:
-    - create
-  - apiGroups:
-    - authorization.k8s.io
-    resources:
-    - subjectaccessreviews
-    verbs:
-    - create
-- apiVersion: rbac.authorization.k8s.io/v1
-  kind: ClusterRoleBinding
-  metadata:
-    name: opensearch-dashboards-proxy
-  subjects:
-    - kind: ServiceAccount
-      name: opensearch-dashboards-proxy
-      namespace: ${NAMESPACE}
-  roleRef:
-    kind: ClusterRole
-    name: opensearch-dashboards-proxy
-    apiGroup: rbac.authorization.k8s.io
 parameters:
-- name: NAMESPACE
-  value: opensearch-dashboards
 - name: IMAGE_TAG
   value: dummy # needed because saasherder will fail if this parameter doesn't exist.
 - name: REPLICAS
