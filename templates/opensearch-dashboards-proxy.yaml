@@ -255,7 +255,7 @@ parameters:
 - name: OAUTH_PROXY_IMAGE_NAME
   value: quay.io/openshift/origin-oauth-proxy
 - name: OAUTH_PROXY_IMAGE_TAG
-  value: "4.4.0"
+  value: "4.14.0"
 - name: RESOLVER_VALID
   value: "30s"
 - name: IMAGE_PULL_SECRET_NAME
