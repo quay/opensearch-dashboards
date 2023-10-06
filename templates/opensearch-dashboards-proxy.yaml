@@ -125,6 +125,7 @@ objects:
           - --provider=openshift
           - --openshift-service-account=opensearch-dashboards-proxy
           - --upstream=http://localhost:8080
+          - --upstream-timeout=3600
           - --tls-cert=/etc/tls/private/tls.crt
           - --tls-key=/etc/tls/private/tls.key
           - --cookie-secret-file=/var/run/secrets/kubernetes.io/serviceaccount/token
