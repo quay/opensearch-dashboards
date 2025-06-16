@@ -132,6 +132,7 @@ objects:
           - --tls-cert=/etc/tls/private/tls.crt
           - --tls-key=/etc/tls/private/tls.key
           - --cookie-secret-file=/var/run/secrets/kubernetes.io/serviceaccount/token
+          - --pass-basic-auth=false
           volumeMounts:
           - mountPath: /etc/tls/private
             name: nginx-tls
